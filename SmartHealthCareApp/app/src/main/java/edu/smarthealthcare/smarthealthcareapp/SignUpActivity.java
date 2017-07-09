@@ -1,37 +1,35 @@
 package edu.smarthealthcare.smarthealthcareapp;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+public class SignUpActivity extends AppCompatActivity {
 
-public class LoginActivity extends AppCompatActivity {
-
-    private Button btnLogin;
+    private Button btnSignup;
     private EditText txtUsername;
     private EditText txtPassword;
+    private EditText txtUserEmail;
+    private EditText txtConfirmPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_sign_up);
 
-        btnLogin = (Button) findViewById(R.id.btnLogin);
+        btnSignup = (Button) findViewById(R.id.btnSignUp);
         txtUsername = (EditText) findViewById(R.id.txtUsername);
         txtPassword = (EditText) findViewById(R.id.txtUserPassword);
+        txtConfirmPass = (EditText) findViewById(R.id.txtUserPasswordConfirm);
+        txtUserEmail = (EditText) findViewById(R.id.txtUserEmailId);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplication(), MainActivity.class);
-                startActivity(i);
+
             }
         });
     }
