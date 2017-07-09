@@ -13,22 +13,33 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:orientation="vertical"
-        android:padding="15dp">
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4.5"
+            android:src="@mipmap/signup"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            />
 
         <EditText
             android:id="@+id/txtUsername"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="15dp"
             android:layout_weight="1"
             android:background="@android:color/background_light"
             android:hint="Username"
             android:padding="10dp" />
-
         <EditText
             android:id="@+id/txtUserEmailId"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="15dp"
             android:layout_weight="1"
             android:background="@android:color/background_light"
@@ -38,7 +49,7 @@
         <EditText
             android:id="@+id/txtUserPassword"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="15dp"
             android:layout_weight="1"
             android:background="@android:color/background_light"
@@ -49,7 +60,7 @@
         <EditText
             android:id="@+id/txtUserPasswordConfirm"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="15dp"
             android:layout_weight="1"
             android:background="@android:color/background_light"
@@ -60,19 +71,19 @@
         <Button
             android:id="@+id/btnSignUp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="15dp"
             android:layout_weight="1"
             android:background="@drawable/button_style"
             android:fontFamily="sans-serif"
-            android:padding="15dp"
             android:text="sign up"
             android:textAllCaps="true"
             android:textColor="@android:color/background_light"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            />
 
     </LinearLayout>
 

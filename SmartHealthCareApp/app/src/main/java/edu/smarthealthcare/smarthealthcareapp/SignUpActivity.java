@@ -19,6 +19,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         btnSignup = (Button) findViewById(R.id.btnSignUp);
         txtUsername = (EditText) findViewById(R.id.txtUsername);

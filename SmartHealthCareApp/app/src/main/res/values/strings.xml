@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Smart Health Care App</string>
+    <string name="app_name">Smart Health Care</string>
     <string name="app_login">Login</string>
     <string name="app_signup">Sign Up</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
