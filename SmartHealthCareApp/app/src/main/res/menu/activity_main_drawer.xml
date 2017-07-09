@@ -3,19 +3,19 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_firstaid"
             android:icon="@drawable/ic_menu_camera"
             android:title="First-Aid Kits" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_balance"
             android:icon="@drawable/ic_menu_gallery"
             android:title="My Balance" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_history"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="History" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_expiry"
             android:icon="@drawable/ic_menu_manage"
             android:title="Kit Expiry" />
     </group>
@@ -23,11 +23,11 @@
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_myaccount"
                 android:icon="@drawable/ic_menu_share"
                 android:title="My Account" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_aboutus"
                 android:icon="@drawable/ic_menu_send"
                 android:title="About Us" />
         </menu>
