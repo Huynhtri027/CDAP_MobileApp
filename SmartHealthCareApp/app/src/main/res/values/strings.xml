@@ -8,4 +8,10 @@
     <string name="action_logout">Logout</string>
     <string name="action_map">Map</string>
     <string name="action_notification">Notification</string>
+    <string name="email_address">Email Address</string>
+    <string name="username_signup">User Name</string>
+    <string name="password">Password</string>
+    <string name="password_confirm">Confirm Password</string>
+    <string name="already_have_an_account">Already have an account</string>
+    <string name="need_a_new_account">Need a new account?</string>
 </resources>
