@@ -101,9 +101,6 @@ public class MainActivity extends AppCompatActivity
                 showFragment(BlanceFragment.class);
                 setTitle(item.getTitle());
             }
-
-        } else if (id == R.id.nav_history) {
-
         } else if (id == R.id.nav_expiry) {
 
         } else if (id == R.id.nav_myaccount) {
