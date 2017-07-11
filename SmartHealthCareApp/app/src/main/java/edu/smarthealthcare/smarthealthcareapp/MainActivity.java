@@ -3,6 +3,7 @@ package edu.smarthealthcare.smarthealthcareapp;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,6 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import edu.smarthealthcare.smarthealthcareapp.Fragments.BlanceFragment;
+import edu.smarthealthcare.smarthealthcareapp.Fragments.FirstAidKit;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,6 +44,12 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        FirstAidKit firstAidKit = new FirstAidKit();
+        android.support.v4.app.FragmentTransaction fragmentTransaction =
+                getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, firstAidKit);
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -79,10 +89,18 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
 
         if (id == R.id.nav_firstaid) {
-            // Handle the camera action
+            if (!(f instanceof FirstAidKit)){
+                showFragment(FirstAidKit.class);
+                setTitle(item.getTitle());
+            }
         } else if (id == R.id.nav_balance) {
+            if (!(f instanceof BlanceFragment)){
+                showFragment(BlanceFragment.class);
+                setTitle(item.getTitle());
+            }
 
         } else if (id == R.id.nav_history) {
 
@@ -97,5 +115,16 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void showFragment(Class fragmentClass) {
+        try {
+            Fragment fragment = (Fragment)fragmentClass.newInstance();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).commit();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -56,8 +56,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 }
 
-//                Intent i = new Intent(getApplication(), MainActivity.class);
-//                startActivity(i);
+                Intent i = new Intent(getApplication(), MainActivity.class);
+                startActivity(i);
             }
         });
     }
