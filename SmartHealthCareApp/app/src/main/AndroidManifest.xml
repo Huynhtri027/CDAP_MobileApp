@@ -14,17 +14,24 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".LoginActivity" android:parentActivityName=".GetStartActivity"
-            android:label="@string/app_login"></activity>
+            android:name=".LoginActivity"
+            android:label="@string/app_login"
+            android:parentActivityName=".GetStartActivity" />
         <activity android:name=".GetStartActivity">
+
+        </activity>
+        <activity
+            android:name=".SignUpActivity"
+            android:label="@string/app_signup"
+            android:parentActivityName=".GetStartActivity" />
+        <activity android:name=".ActivityKitDetails">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpActivity" android:parentActivityName=".GetStartActivity"
-            android:label="@string/app_signup"></activity>
     </application>
 
 </manifest>

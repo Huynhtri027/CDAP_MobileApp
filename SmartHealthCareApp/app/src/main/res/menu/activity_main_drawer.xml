@@ -7,26 +7,29 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="First-Aid Kits" />
         <item
+            android:id="@+id/nav_orders"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="My Orders" />
+
+        <item
             android:id="@+id/nav_balance"
             android:icon="@drawable/ic_menu_gallery"
             android:title="My Balance" />
+
         <item
             android:id="@+id/nav_expiry"
             android:icon="@drawable/ic_menu_manage"
             android:title="Kit Expiry" />
+
+        <item
+            android:id="@+id/nav_myaccount"
+            android:icon="@drawable/ic_menu_share"
+            android:title="My Account" />
+        <item
+            android:id="@+id/nav_aboutus"
+            android:icon="@drawable/ic_menu_send"
+            android:title="About Us" />
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_myaccount"
-                android:icon="@drawable/ic_menu_share"
-                android:title="My Account" />
-            <item
-                android:id="@+id/nav_aboutus"
-                android:icon="@drawable/ic_menu_send"
-                android:title="About Us" />
-        </menu>
-    </item>
 
 </menu>

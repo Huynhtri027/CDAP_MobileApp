@@ -16,6 +16,8 @@ import android.view.MenuItem;
 
 import edu.smarthealthcare.smarthealthcareapp.Fragments.BlanceFragment;
 import edu.smarthealthcare.smarthealthcareapp.Fragments.FirstAidKit;
+import edu.smarthealthcare.smarthealthcareapp.Fragments.FragmentMyAccount;
+import edu.smarthealthcare.smarthealthcareapp.Fragments.OrdersFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -96,15 +98,25 @@ public class MainActivity extends AppCompatActivity
                 showFragment(FirstAidKit.class);
                 setTitle(item.getTitle());
             }
-        } else if (id == R.id.nav_balance) {
+        }else if (id == R.id.nav_orders) {
+            if (!(f instanceof OrdersFragment)){
+                showFragment(OrdersFragment.class);
+                setTitle(item.getTitle());
+            }
+        }
+        else if (id == R.id.nav_balance) {
             if (!(f instanceof BlanceFragment)){
                 showFragment(BlanceFragment.class);
                 setTitle(item.getTitle());
             }
         } else if (id == R.id.nav_expiry) {
 
-        } else if (id == R.id.nav_myaccount) {
 
+        } else if (id == R.id.nav_myaccount) {
+            if (!(f instanceof FragmentMyAccount)){
+                showFragment(FragmentMyAccount.class);
+                setTitle(item.getTitle());
+            }
         } else if (id == R.id.nav_aboutus) {
 
         }

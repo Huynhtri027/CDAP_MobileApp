@@ -53,11 +53,11 @@ public class LoginActivity extends AppCompatActivity {
                     if (textPassword.length()==0)
                         txtPassword.setError("Please enter your password");
                 }else{
-
+                    Intent i = new Intent(getApplication(), MainActivity.class);
+                    startActivity(i);
                 }
 
-                Intent i = new Intent(getApplication(), MainActivity.class);
-                startActivity(i);
+
             }
         });
     }

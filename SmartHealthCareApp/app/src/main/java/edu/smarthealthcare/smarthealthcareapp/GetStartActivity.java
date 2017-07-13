@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
+import com.gigamole.slideimageview.lib.SlideImageView;
+
 public class GetStartActivity extends Activity implements View.OnClickListener{
 
     private Button btnHaveAcc;
@@ -24,6 +26,11 @@ public class GetStartActivity extends Activity implements View.OnClickListener{
 
         btnNewAcc.setOnClickListener(this);
         btnHaveAcc.setOnClickListener(this);
+
+        final SlideImageView slideImageView = (SlideImageView) findViewById(R.id.img_horizontal_slide);
+        slideImageView.setSource(R.mipmap.backgroud);
+        slideImageView.setRate(0.3f);
+        slideImageView.setAxis(SlideImageView.Axis.HORIZONTAL);
     }
 
 
