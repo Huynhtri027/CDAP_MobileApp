@@ -1,9 +1,11 @@
 package edu.smarthealthcare.smarthealthcareapp;
 
+import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 
 import com.gigamole.slideimageview.lib.SlideImageView;
 
@@ -21,14 +23,16 @@ public class ActivityKitDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kit_details);
         //Tabs
+//
 
-        viewPager = (ViewPager) findViewById(R.id.main_tabPager);
-        mSectionsPagerAdaper = new SectionsPagerAdaper(getSupportFragmentManager());
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar_new);
+        setSupportActionBar(toolbar);
 
-        viewPager.setAdapter(mSectionsPagerAdaper);
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mTabLayout = (TabLayout) findViewById(R.id.main_tabs);
-        mTabLayout.setupWithViewPager(viewPager);
+        }
 
 
     }
