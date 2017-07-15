@@ -20,4 +20,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="firstaidfrag">First Aid Fragment</string>
     <string name="easy_first_aid_solution">Easy First-Aid Solution</string>
+    <string name="action_search">Search</string>
 </resources>

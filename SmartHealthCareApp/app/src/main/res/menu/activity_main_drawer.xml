@@ -4,16 +4,16 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_firstaid"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_first_aid"
             android:title="First-Aid Kits" />
         <item
             android:id="@+id/nav_orders"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_orders"
             android:title="My Orders" />
 
         <item
             android:id="@+id/nav_balance"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_balance"
             android:title="My Balance" />
 
         <item
@@ -23,11 +23,11 @@
 
         <item
             android:id="@+id/nav_myaccount"
-            android:icon="@drawable/ic_menu_share"
+            android:icon="@drawable/ic_account"
             android:title="My Account" />
         <item
             android:id="@+id/nav_aboutus"
-            android:icon="@drawable/ic_menu_send"
+            android:icon="@drawable/ic_about"
             android:title="About Us" />
     </group>
 
