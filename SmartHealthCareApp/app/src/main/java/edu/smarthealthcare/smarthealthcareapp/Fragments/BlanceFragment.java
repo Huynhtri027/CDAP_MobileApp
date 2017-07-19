@@ -15,6 +15,7 @@ import edu.smarthealthcare.smarthealthcareapp.R;
  */
 public class BlanceFragment extends Fragment {
 
+    private View mView;
 
     public BlanceFragment() {
         // Required empty public constructor
@@ -25,7 +26,9 @@ public class BlanceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_blance, container, false);
+        mView = inflater.inflate(R.layout.fragment_blance, container, false);
+
+        return mView;
     }
 
 }

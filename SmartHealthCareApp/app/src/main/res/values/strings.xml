@@ -6,6 +6,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+
     <string name="action_logout">Logout</string>
     <string name="action_map">Map</string>
     <string name="action_notification">Notification</string>
@@ -21,4 +22,26 @@
     <string name="firstaidfrag">First Aid Fragment</string>
     <string name="easy_first_aid_solution">Easy First-Aid Solution</string>
     <string name="action_search">Search</string>
+
+    <string-array name="size_array">
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
+    </string-array>
+
+    <string-array name="qty_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+
+
+    <!--API KEY-->
+    <string name="api_key">AIzaSyDuFW_FH0MH0nWJkbFLenMIzFlawEHyoAM</string>
+    <string name="confirm">Confirm</string>
+    <string name="Confirm_Order">Confirm Order</string>
+    <string name="error_no_internet_connection">No internet connection!. Check your internet connection and try again</string>
 </resources>

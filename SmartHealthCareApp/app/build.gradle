@@ -12,6 +12,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -34,7 +35,15 @@ dependencies {
     compile 'com.github.gigamole.slideimageview:library:1.1.4'
     compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.0'
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
-    compile 'com.google.android.gms:play-services:11.0.2'
+    compile 'com.google.android.gms:play-services:11.0.1'
+    compile 'com.afollestad.material-dialogs:core:0.9.4.5'
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    compile 'com.squareup.okhttp3:okhttp:3.6.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+//    compile 'com.github.simbiose:Encryption:2.0.0'
     compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:multidex:1.0.1'
     testCompile 'junit:junit:4.12'
 }
