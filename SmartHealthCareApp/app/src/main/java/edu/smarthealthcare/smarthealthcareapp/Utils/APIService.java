@@ -6,6 +6,7 @@ import java.util.List;
 import edu.smarthealthcare.smarthealthcareapp.Classes.FirstAidKitModel;
 import edu.smarthealthcare.smarthealthcareapp.Classes.OrderModel;
 import edu.smarthealthcare.smarthealthcareapp.Classes.PatientModel;
+import edu.smarthealthcare.smarthealthcareapp.Classes.ServerResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -28,8 +29,8 @@ public interface APIService {
     @FormUrlEncoded
     Call<FirstAidKitModel> getDrugPackOneData(@Field("DrugId") String drug_id);
 
-    @POST("getDrugPackDetailsByID")
+    @POST("makeOrder")
     @FormUrlEncoded
-    Call<OrderModel> getOrderData(@Field("DrugId") String drug_id);
+    Call<ServerResponse> addOrderData(@Field("CustomerId") String CustomerId, @Field("Quantity") String Quantity, @Field("TotalAmount") String TotalAmount, @Field("PackId") String PackId);
 
 }

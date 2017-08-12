@@ -28,10 +28,13 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import edu.smarthealthcare.smarthealthcareapp.Classes.FirstAidKitModel;
+import edu.smarthealthcare.smarthealthcareapp.Classes.OrderModel;
 import edu.smarthealthcare.smarthealthcareapp.Classes.SectionsPagerAdaper;
+import edu.smarthealthcare.smarthealthcareapp.Classes.ServerResponse;
 import edu.smarthealthcare.smarthealthcareapp.Utils.APIService;
 import edu.smarthealthcare.smarthealthcareapp.Utils.NetConnect;
 import edu.smarthealthcare.smarthealthcareapp.Utils.ServiceGenerator;
+import edu.smarthealthcare.smarthealthcareapp.Utils.SharedPreferenceReader;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -216,7 +219,34 @@ public class ActivityKitDetails extends AppCompatActivity {
         double total = 0;
         total = Qty * price_item;
 
+        String customer_id = SharedPreferenceReader.getUserID(ActivityKitDetails.this);
 
+
+        APIService apiService = ServiceGenerator.createService(APIService.class);
+        Call<ServerResponse> call = apiService.addOrderData(customer_id,Qty+"",total+"",ProductID+"");
+
+        call.enqueue(new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+
+                if (response.isSuccessful()){
+
+                    ServerResponse serverResponse = response.body();
+
+                    if (serverResponse.getResult()){
+                        Toast.makeText(ActivityKitDetails.this, serverResponse.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                }else{
+                    Toast.makeText(ActivityKitDetails.this, "Something Wrong, Try again later!", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
+                Toast.makeText(ActivityKitDetails.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
 
     }
 
