@@ -62,29 +62,6 @@
                         android:layout_weight="1"/>
 
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Size"
-                        android:textSize="18sp"
-                        android:layout_weight="1"
-                        />
-
-                    <Spinner
-                        android:layout_weight="1"
-                        android:id="@+id/cmb_prod_size"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-
-                        />
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_marginTop="10dp"

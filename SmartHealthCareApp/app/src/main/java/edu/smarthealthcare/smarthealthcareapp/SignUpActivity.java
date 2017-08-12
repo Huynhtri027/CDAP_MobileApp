@@ -13,8 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dd.processbutton.iml.ActionProcessButton;
+import com.google.android.gms.auth.api.signin.internal.SignInHubActivity;
 
 import java.util.HashMap;
+
+import edu.smarthealthcare.smarthealthcareapp.Utils.NetConnect;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -76,25 +79,21 @@ public class SignUpActivity extends AppCompatActivity {
 
                 else{
 
-//                    if (NetConnect.isNetworkConnected(Login.this)){
-//                        btn_sign_in.setProgress(50);
-//
-//                        HashMap<String,String> loginData = new HashMap<String, String>();
-//                        loginData.put("email",textEmail);
-//                        loginData.put("password",textPassword);
-//                        loginData.put("code","3");
-//                        login(loginData);
-//                    }
-//                    else{
-//                        btn_sign_in.setProgress(-1); //fail
-//                        new Handler().postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() { // set to normal after 2 seconds
-//                                btn_sign_in.setProgress(0);
-//                            }
-//                        },2000);
-//                        Toast.makeText(Login.this, R.string.error_no_internet_connection, Toast.LENGTH_SHORT).show();
-//                    }
+                    if (NetConnect.isNetworkConnected(SignUpActivity.this)){
+                        btnSignup.setProgress(50);
+
+//                        registerPatient();
+                    }
+                    else{
+                        btnSignup.setProgress(-1); //fail
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() { // set to normal after 2 seconds
+                                btnSignup.setProgress(0);
+                            }
+                        },2000);
+                        Toast.makeText(SignUpActivity.this, R.string.error_no_internet_connection, Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

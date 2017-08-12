@@ -1,26 +1,49 @@
 package edu.smarthealthcare.smarthealthcareapp.Classes;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by RG User on 07/19/17.
  */
 
 public class PatientModel {
 
-    private String success;
+    @SerializedName("Id")
+    @Expose
     private String Id;
+    @SerializedName("FirstName")
+    @Expose
     private String FirstName;
+    @SerializedName("LastName")
+    @Expose
     private String LastName;
+    @SerializedName("Email")
+    @Expose
     private String Email;
+    @SerializedName("Password")
+    @Expose
     private String Password;
+    @SerializedName("Sex")
+    @Expose
     private String Sex;
+    @SerializedName("Age")
+    @Expose
     private String Age;
+    @SerializedName("Address")
+    @Expose
     private String Address;
+    @SerializedName("ContactNo")
+    @Expose
     private String ContactNo;
+    @SerializedName("RfidCode")
+    @Expose
     private String RfidCode;
+    @SerializedName("RegisterAt")
+    @Expose
     private String RegisterAt;
 
     public PatientModel() {
-        this.success = null;
         Id = null;
         FirstName = null;
         LastName = null;
@@ -33,15 +56,6 @@ public class PatientModel {
         RfidCode = null;
         RegisterAt = null;
     }
-
-    public String getSuccess() {
-        return success;
-    }
-
-    public void setSuccess(String success) {
-        this.success = success;
-    }
-
     public String getId() {
         return Id;
     }

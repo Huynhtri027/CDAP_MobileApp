@@ -3,7 +3,6 @@ package edu.smarthealthcare.smarthealthcareapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -14,11 +13,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import edu.smarthealthcare.smarthealthcareapp.Fragments.BlanceFragment;
-import edu.smarthealthcare.smarthealthcareapp.Fragments.FirstAidKit;
+import edu.smarthealthcare.smarthealthcareapp.Fragments.FragmentFirstAidKit;
 import edu.smarthealthcare.smarthealthcareapp.Fragments.FragmentMyAccount;
 import edu.smarthealthcare.smarthealthcareapp.Fragments.OrdersFragment;
+import edu.smarthealthcare.smarthealthcareapp.Utils.SharedPreferenceReader;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        Toast.makeText(MainActivity.this, "User: " + SharedPreferenceReader.getUserName(this), Toast.LENGTH_LONG).show();
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -48,10 +51,10 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        FirstAidKit firstAidKit = new FirstAidKit();
+        FragmentFirstAidKit fragmentFirstAidKit = new FragmentFirstAidKit();
         android.support.v4.app.FragmentTransaction fragmentTransaction =
                 getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, firstAidKit);
+        fragmentTransaction.replace(R.id.fragment_container, fragmentFirstAidKit);
         fragmentTransaction.commit();
     }
 
@@ -95,8 +98,8 @@ public class MainActivity extends AppCompatActivity
         Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
 
         if (id == R.id.nav_firstaid) {
-            if (!(f instanceof FirstAidKit)){
-                showFragment(FirstAidKit.class);
+            if (!(f instanceof FragmentFirstAidKit)){
+                showFragment(FragmentFirstAidKit.class);
                 setTitle(item.getTitle());
             }
         }else if (id == R.id.nav_orders) {

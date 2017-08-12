@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -27,6 +28,7 @@ import edu.smarthealthcare.smarthealthcareapp.Classes.PatientModel;
 import edu.smarthealthcare.smarthealthcareapp.Utils.APIService;
 import edu.smarthealthcare.smarthealthcareapp.Utils.NetConnect;
 import edu.smarthealthcare.smarthealthcareapp.Utils.ServiceGenerator;
+import edu.smarthealthcare.smarthealthcareapp.Utils.SharedPreferenceReader;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -75,16 +77,16 @@ public class LoginActivity extends AppCompatActivity {
                     if (NetConnect.isNetworkConnected(LoginActivity.this)){
                         btnLogin.setProgress(50);
 
-                        HashMap<String,String> patientData = new HashMap<String, String>();
-                        patientData.put("email",textUsername);
-                        patientData.put("password",textPassword);
-                        login(patientData);
+                        String email = txtUsername.getText().toString();
+                        String password = txtPassword.getText().toString();
+
+                        login(email,password);
                     }
                     else{
-                        btnLogin.setProgress(-1); //fail
+                        btnLogin.setProgress(-1);
                         new Handler().postDelayed(new Runnable() {
                             @Override
-                            public void run() { // set to normal after 2 seconds
+                            public void run() {
                                 btnLogin.setProgress(0);
                             }
                         },2000);
@@ -96,65 +98,47 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void login(HashMap<String, String> patientData) {
+    private void login(String email, String password) {
 
-//        Toast.makeText(LoginActivity.this, "Loged in", Toast.LENGTH_SHORT).show();
         APIService apiService = ServiceGenerator.createService(APIService.class);
-        Call<PatientModel> call = apiService.patient(patientData);
+        Call<PatientModel> call = apiService.getPatientData(email,password);
         call.enqueue(new Callback<PatientModel>() {
             @Override
             public void onResponse(Call<PatientModel> call, Response<PatientModel> response) {
+
                 if (response.isSuccessful()){
-                    PatientModel patientResponse = response.body();
-                    if(patientResponse.getSuccess().equals("true")) { //login success, update values and show home page
+
+                    if (response.body() == null){
+
+                        btnLogin.setProgress(-1);
+
+                        new MaterialDialog.Builder(LoginActivity.this)
+                                .title("No account found")
+                                .content("Sorry, We can not find your account in our server!.")
+                                .positiveText("Ok")
+                                .positiveColor(ContextCompat.getColor(LoginActivity.this, R.color.material_green))
+                                .build().show();
+
+                    }else{
+
+                        btnLogin.setProgress(100);
+                        PatientModel patientModel = response.body();
 
 
-                        btnLogin.setProgress(100); //success
-//                        SharedPreferenceReader.createLoginSession(Login.this, patientData.get("email"), patientData.get("password"), loginResponse.getUser_id(), loginResponse.getUser_name(), loginResponse.getUser_profile_url());
-//                        SharedPreferenceReader.createLoginSession(LoginActivity.this, patientData.get("email"), patientData.get("password"), loginResponse.getUser_id(), loginResponse.getUser_name() ,loginResponse.getUser_first_name(), loginResponse.getUser_last_name(), loginResponse.getUser_profile_url());
-//                        FirebaseTokenManager.sendTokenToServer(Login.this, FirebaseInstanceId.getInstance().getToken());
-                        Intent i = new Intent(getApplication(), MainActivity.class);
+                        SharedPreferenceReader.createLoginSession(LoginActivity.this,patientModel.getEmail(),patientModel.getPassword(),patientModel.getId(),patientModel.getFirstName() + " " +patientModel.getLastName());
+                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(i);
 
-                        finish();
-
                     }
-                    else{
-                        Toast.makeText(LoginActivity.this,"Invalid User",Toast.LENGTH_LONG).show();
-                        btnLogin.setProgress(-1); //fail
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() { // set to normal after 2 seconds
-                                btnLogin.setProgress(0);
-                            }
-                        },2000);
-                    }
-
-                }else{
-
-                    Toast.makeText(getApplicationContext(),"Something went wrong with the service provider. Please contact the developer team", Toast.LENGTH_LONG).show();
-                    btnLogin.setProgress(-1); //fail
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() { // set to normal after 2 seconds
-                            btnLogin.setProgress(0);
-                        }
-                    },2000);
                 }
+
+
 
             }
 
             @Override
             public void onFailure(Call<PatientModel> call, Throwable t) {
-                Log.d("Error", t.getMessage());
-                Toast.makeText(getApplicationContext(),"Unexpected response from server. Please try again", Toast.LENGTH_LONG).show();
-                btnLogin.setProgress(-1); //fail
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() { // set to normal after 2 seconds
-                        btnLogin.setProgress(0);
-                    }
-                },2000);
+                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 

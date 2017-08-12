@@ -15,21 +15,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
 
-    private static final String BASE_URL = "https://127.0.0.1/testing/";
+    private static final String BASE_URL = "http://10.0.2.2/CDAP_Website/MobileAppController/";
 
     private static OkHttpClient.Builder httpClient =
-            new OkHttpClient.Builder().addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)).connectTimeout(30,TimeUnit.SECONDS).readTimeout(30,TimeUnit.SECONDS);
+            new OkHttpClient.Builder().addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)).connectTimeout(30,TimeUnit.SECONDS).readTimeout(30,TimeUnit.SECONDS);
 
 
     private static Retrofit.Builder builder =
             new Retrofit.Builder()
                     .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().serializeNulls().create()))
+                    .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().serializeNulls().setLenient().create()))
                     .client(httpClient.build());
 
     private static Retrofit retrofit = builder.build();
-
-
 
     public static <S> S createService(
             Class<S> serviceClass) {
