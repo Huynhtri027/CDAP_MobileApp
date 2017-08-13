@@ -2,8 +2,10 @@ package edu.smarthealthcare.smarthealthcareapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +16,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import edu.smarthealthcare.smarthealthcareapp.Fragments.BlanceFragment;
 import edu.smarthealthcare.smarthealthcareapp.Fragments.FragmentFirstAidKit;
@@ -84,7 +89,27 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
-            return true;
+
+            new MaterialDialog.Builder(MainActivity.this)
+                    .title("Logout")
+                    .content("Do you really want to logout now!.")
+                    .positiveText("Confirm")
+                    .negativeText("Cancel")
+                    .positiveColor(ContextCompat.getColor(MainActivity.this, R.color.material_green))
+                    .negativeColor(ContextCompat.getColor(MainActivity.this, R.color.material_red))
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            Intent i = new Intent(MainActivity.this, GetStartActivity.class);
+                            SharedPreferenceReader.clearPreferences(MainActivity.this);
+                            startActivity(i);
+                            finish();
+                        }
+                    })
+                    .build().show();
+
+
+
         }
 
         return super.onOptionsItemSelected(item);

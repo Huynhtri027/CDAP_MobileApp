@@ -1,32 +1,40 @@
 package edu.smarthealthcare.smarthealthcareapp;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.google.android.gms.auth.api.signin.internal.SignInHubActivity;
 
 import java.util.HashMap;
 
+import edu.smarthealthcare.smarthealthcareapp.Classes.PatientModel;
+import edu.smarthealthcare.smarthealthcareapp.Classes.ServerResponse;
+import edu.smarthealthcare.smarthealthcareapp.Utils.APIService;
 import edu.smarthealthcare.smarthealthcareapp.Utils.NetConnect;
+import edu.smarthealthcare.smarthealthcareapp.Utils.ServiceGenerator;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SignUpActivity extends AppCompatActivity {
 
     private ActionProcessButton btnSignup;
 
-    private TextInputEditText txtUsername;
-    private TextInputEditText txtPassword;
-    private TextInputEditText txtUserEmail;
-    private TextInputEditText txtConfirmPass;
+    private TextInputEditText txt_first_name_reg, txt_last_name_reg,txt_user_email_reg,txt_user_age_reg, txt_user_address_reg,
+            txt_user_phone_reg,txt_user_rfid_reg,txt_user_password_reg,txt_user_confirm_password_reg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,46 +51,74 @@ public class SignUpActivity extends AppCompatActivity {
         btnSignup.setColorScheme(ContextCompat.getColor(this,R.color.colorPrimary),ContextCompat.getColor(this,R.color.white),ContextCompat.getColor(this,R.color.colorPrimary),ContextCompat.getColor(this,R.color.white));
 
         btnSignup = (ActionProcessButton) findViewById(R.id.btnSignUp);
-        txtUsername = (TextInputEditText) findViewById(R.id.tiet_user_name);
-        txtUserEmail = (TextInputEditText) findViewById(R.id.tiet_user_email);
-        txtPassword = (TextInputEditText) findViewById(R.id.tiet_user_password);
-        txtConfirmPass = (TextInputEditText) findViewById(R.id.tiet_user_conf_password);
+        txt_first_name_reg = (TextInputEditText) findViewById(R.id.txt_first_name_reg);
+        txt_last_name_reg = (TextInputEditText) findViewById(R.id.txt_last_name_reg);
+        txt_user_email_reg = (TextInputEditText) findViewById(R.id.txt_user_email_reg);
+        txt_user_age_reg = (TextInputEditText) findViewById(R.id.txt_user_age_reg);
+        txt_user_address_reg = (TextInputEditText) findViewById(R.id.txt_user_address_reg);
+        txt_user_phone_reg = (TextInputEditText) findViewById(R.id.txt_user_phone_reg);
+        txt_user_rfid_reg = (TextInputEditText) findViewById(R.id.txt_user_rfid_reg);
+        txt_user_password_reg = (TextInputEditText) findViewById(R.id.txt_user_password_reg);
+        txt_user_confirm_password_reg = (TextInputEditText) findViewById(R.id.txt_user_confirm_password_reg);
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String textFirstName = txt_first_name_reg.getText().toString().trim();
+                String textLasttName = txt_last_name_reg.getText().toString().trim();
+                String textEmail = txt_user_email_reg.getText().toString().trim();
+                String textAge = txt_user_age_reg.getText().toString().trim();
+                String textAddress = txt_user_address_reg.getText().toString().trim();
+                String textPhone = txt_user_phone_reg.getText().toString().trim();
+                String textRfid = txt_user_rfid_reg.getText().toString().trim();
+                String textPassword = txt_user_password_reg.getText().toString().trim();
+                String textConfirmPassword = txt_user_confirm_password_reg.getText().toString().trim();
 
-                final String textEmail = txtUserEmail.getText().toString().trim();
-                final String textPassword = txtPassword.getText().toString().trim();
-                final String textUsername = txtUsername.getText().toString().trim();
-                final String textConfirmPassword = txtConfirmPass.getText().toString().trim();
+                if (textFirstName.length() == 0 || textLasttName.length()==0 || textEmail.length() ==0 || textAge.length()==0
+                        || textAddress.length()==0 || textPhone.length() ==0 || textRfid.length()==0
+                        || textPassword.length() ==0 || textConfirmPassword.length()==0){
 
-                if (textEmail.length() == 0 || textPassword.length()==0 || textUsername.length() ==0 || textConfirmPassword.length()==0){
-
-                    if (textUsername.length()==0)
-                        txtUsername.setError("Please enter your user name");
+                    if (textFirstName.length()==0)
+                        txt_first_name_reg.setError("Please enter your first name");
+                    if (textLasttName.length()==0)
+                        txt_last_name_reg.setError("Please enter your last name");
                     if (textEmail.length()==0)
-                        txtUserEmail.setError("Please enter your email address");
+                        txt_user_email_reg.setError("Please enter your email address");
+                    if (textAge.length()==0)
+                        txt_user_age_reg.setError("Please enter your age");
+                    if (textAddress.length()==0)
+                        txt_user_address_reg.setError("Please enter your address");
+                    if (textPhone.length()==0)
+                        txt_user_phone_reg.setError("Please enter your phone number");
                     if (textPassword.length()==0)
-                        txtPassword.setError("Please enter your password");
+                        txt_user_password_reg.setError("Please enter your password");
                     if (textConfirmPassword.length()==0)
-                        txtConfirmPass.setError("Please enter your confirm password");
+                        txt_user_confirm_password_reg.setError("Please enter your confirm password");
 
                 }
 
                 else if(!isValidEmail(textEmail)){
-                    txtUserEmail.setError("Please enter a valid email address");
+                    txt_user_email_reg.setError("Please enter a valid email address");
                 }
                 else if(!isMatching(textPassword, textConfirmPassword)){
-                    txtConfirmPass.setError("Please enter a matching password");
+                    txt_user_confirm_password_reg.setError("Please enter a matching password");
                 }
-
+                else if (!isNumber(textAge)){
+                    txt_user_age_reg.setError("Please enter correct value for age");
+                }
+                else if (!isNumber(textPhone)){
+                    txt_user_age_reg.setError("Please enter correct value for phone number");
+                }
                 else{
 
                     if (NetConnect.isNetworkConnected(SignUpActivity.this)){
                         btnSignup.setProgress(50);
 
-//                        registerPatient();
+                        if (textRfid.length()==0){
+                            textRfid = "";
+                        }
+
+                        registerPatient(textFirstName, textLasttName, textEmail, textAge, textAddress, textPhone, textRfid , textPassword);
                     }
                     else{
                         btnSignup.setProgress(-1); //fail
@@ -92,11 +128,59 @@ public class SignUpActivity extends AppCompatActivity {
                                 btnSignup.setProgress(0);
                             }
                         },2000);
-                        Toast.makeText(SignUpActivity.this, R.string.error_no_internet_connection, Toast.LENGTH_SHORT).show();
+                        new MaterialDialog.Builder(SignUpActivity.this)
+                                .title("No Internet")
+                                .content("Please check your WiFi/Mobile Data settings and try again.")
+                                .positiveText("OK")
+                                .positiveColor(ContextCompat.getColor(SignUpActivity.this, R.color.material_green))
+                                .build().show();
                     }
                 }
             }
         });
+
+    }
+
+    private void registerPatient(String textFirstName, String textLasttName, String textEmail,
+                                 String textAge, String textAddress, String textPhone, String textRfid, String textPassword) {
+
+        APIService apiService = ServiceGenerator.createService(APIService.class);
+        Call<ServerResponse> call = apiService.registerPatientData(textFirstName,textLasttName,textEmail,
+                textAge,textAddress,textPhone,textRfid,textPassword);
+
+        call.enqueue(new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+
+                if (response.isSuccessful()) {
+
+                    ServerResponse serverResponse = response.body();
+                    if (serverResponse.getResult()){
+
+                        Toast.makeText(SignUpActivity.this, "Your account is successfully registered.. Login to continue!", Toast.LENGTH_LONG).show();
+
+                        Intent i = new Intent(SignUpActivity.this,GetStartActivity.class);
+                        startActivity(i);
+                        finish();
+
+
+                    }else{
+
+                        Toast.makeText(SignUpActivity.this, "Cant register your account right now!", Toast.LENGTH_LONG).show();
+
+                    }
+
+                }else{
+                    Toast.makeText(SignUpActivity.this, "Something Wrong, Try again later!", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
+                Toast.makeText(SignUpActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
     public boolean isValidEmail(CharSequence target) {
@@ -107,5 +191,15 @@ public class SignUpActivity extends AppCompatActivity {
             return true;
         return false;
 
+    }
+    public boolean isNumber(String number){
+        try {
+            int num = Integer.parseInt(number);
+            Log.i("",num+" is a number");
+            return true;
+        } catch (NumberFormatException e) {
+            Log.i("",number+" is not a number");
+            return false;
+        }
     }
 }

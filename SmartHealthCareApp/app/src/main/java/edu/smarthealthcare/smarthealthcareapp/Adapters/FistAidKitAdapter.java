@@ -21,7 +21,6 @@ import edu.smarthealthcare.smarthealthcareapp.R;
 public class FistAidKitAdapter extends RecyclerView.Adapter<FistAidKitAdapter.RecyclerViewItemHolder> {
 
     private List<FirstAidKitModel> firstAidKitModels;
-    private Context mContext;
 
     public FistAidKitAdapter(List<FirstAidKitModel> firstAidKitModelList) {
         this.firstAidKitModels = firstAidKitModelList;

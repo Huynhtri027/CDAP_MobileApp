@@ -1,43 +1,101 @@
 package edu.smarthealthcare.smarthealthcareapp.Classes;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by RG User on 08/12/17.
  */
 
 public class OrderModel {
 
-    private int OrderId;
-    private int CustomerId;
-    private  int TotalAmount;
-    private int DeliveryStatus;
-    private int PackId;
+    @SerializedName("OrderId")
+    @Expose
+    private String OrderId;
+    @SerializedName("CustomerId")
+    @Expose
+    private String CustomerId;
+    @SerializedName("TotalAmount")
+    @Expose
+    private  String TotalAmount;
+    @SerializedName("DeliveryStatus")
+    @Expose
+    private String DeliveryStatus;
+    @SerializedName("PackId")
+    @Expose
+    private String PackId;
+    @SerializedName("AddedDate")
+    @Expose
+    private String AddedDate;
+    @SerializedName("DrugPackName")
+    @Expose
+    private String DrugPackName;
+    @SerializedName("Image")
+    @Expose
+    private String Image;
 
-    public OrderModel(int orderId, int customerId, int totalAmount, int deliveryStatus, int packId) {
-        OrderId = 0;
-        CustomerId = 0;
-        TotalAmount = 0;
-        DeliveryStatus = 0;
-        PackId = 0;
+
+    public String getOrderId() {
+        return OrderId;
     }
 
-    public int getOrderId() { return OrderId; }
+    public void setOrderId(String orderId) {
+        OrderId = orderId;
+    }
 
-    public void setOrderId(int orderId) { OrderId = orderId; }
+    public String getCustomerId() {
+        return CustomerId;
+    }
 
-    public int getCustomerId() { return CustomerId;}
+    public void setCustomerId(String customerId) {
+        CustomerId = customerId;
+    }
 
-    public void setCustomerId(int customerId) { CustomerId = customerId; }
+    public String getTotalAmount() {
+        return TotalAmount;
+    }
 
-    public int getTotalAmount() { return TotalAmount; }
+    public void setTotalAmount(String totalAmount) {
+        TotalAmount = totalAmount;
+    }
 
-    public void setTotalAmount(int totalAmount) { TotalAmount = totalAmount; }
+    public String getDeliveryStatus() {
+        return DeliveryStatus;
+    }
 
-    public int getDeliveryStatus() { return DeliveryStatus; }
+    public void setDeliveryStatus(String deliveryStatus) {
+        DeliveryStatus = deliveryStatus;
+    }
 
-    public void setDeliveryStatus(int deliveryStatus) { DeliveryStatus = deliveryStatus;}
+    public String getPackId() {
+        return PackId;
+    }
 
-    public int getPackId() { return PackId; }
+    public void setPackId(String packId) {
+        PackId = packId;
+    }
 
-    public void setPackId(int packId) { PackId = packId; }
+    public String getAddedDate() {
+        return AddedDate;
+    }
 
+    public void setAddedDate(String addedDate) {
+        AddedDate = addedDate;
+    }
+
+    public String getDrugPackName() {
+        return DrugPackName;
+    }
+
+    public void setDrugPackName(String drugPackName) {
+        DrugPackName = drugPackName;
+    }
+
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String image) {
+        Image = image;
+    }
 }

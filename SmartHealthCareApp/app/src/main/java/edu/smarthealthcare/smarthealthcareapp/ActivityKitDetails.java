@@ -48,7 +48,7 @@ public class ActivityKitDetails extends AppCompatActivity {
     private TabLayout mTabLayout;
     private MaterialDialog.Builder dialog;
 
-    private Button btnOder;
+    private Button btnOder, btnProductAvail;
     private TextView prodName;
     private TextView prodID;
     private Spinner prodSize;
@@ -60,10 +60,7 @@ public class ActivityKitDetails extends AppCompatActivity {
     private int quantity;
 
     private String global_product_name, global_product_id, global_product_price;
-
-
     private TextView txtProductDescDetails, txtProductPriceProdDetails,txtProductNameProdDetails;
-
     private ImageView imageViewProductDetail;
 
     @Override
@@ -157,6 +154,13 @@ public class ActivityKitDetails extends AppCompatActivity {
                         }
                     });
 
+                    btnProductAvail.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            createAvailableDialog(global_product_id);
+                        }
+                    });
+
                     progressDialog.cancel();
 
 
@@ -173,6 +177,15 @@ public class ActivityKitDetails extends AppCompatActivity {
                 progressDialog.cancel();
             }
         });
+    }
+
+    private void createAvailableDialog(String global_product_id) {
+
+        View mView = getLayoutInflater().inflate(R.layout.fragment_view_product_location, null);
+        dialog = new MaterialDialog.Builder(ActivityKitDetails.this);
+        dialog.title(R.string.available_location);
+
+
     }
 
 

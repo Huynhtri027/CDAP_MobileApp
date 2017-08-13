@@ -3,6 +3,7 @@ package edu.smarthealthcare.smarthealthcareapp.Utils;
 import java.util.HashMap;
 import java.util.List;
 
+import edu.smarthealthcare.smarthealthcareapp.Classes.BalanceModel;
 import edu.smarthealthcare.smarthealthcareapp.Classes.FirstAidKitModel;
 import edu.smarthealthcare.smarthealthcareapp.Classes.OrderModel;
 import edu.smarthealthcare.smarthealthcareapp.Classes.PatientModel;
@@ -22,6 +23,13 @@ public interface APIService {
     @FormUrlEncoded
     Call<PatientModel> getPatientData(@Field("email") String email, @Field("password") String password);
 
+    @POST("getLogin")
+    @FormUrlEncoded
+    Call<ServerResponse> registerPatientData(@Field("Ufname") String Ufname, @Field("Ulname") String Ulname,
+                                             @Field("Uemail") String Uemail, @Field("Uage") String Uage,
+                                             @Field("UaddCustomer") String UaddCustomer, @Field("UtelCustomer") String UtelCustomer,
+                                             @Field("Urfid") String Urfid, @Field("Upwd") String Upwd);
+
     @GET("getDrugPackDetails")
     Call<List<FirstAidKitModel>> getDrugPackData();
 
@@ -33,4 +41,11 @@ public interface APIService {
     @FormUrlEncoded
     Call<ServerResponse> addOrderData(@Field("CustomerId") String CustomerId, @Field("Quantity") String Quantity, @Field("TotalAmount") String TotalAmount, @Field("PackId") String PackId);
 
+    @POST("getOrderDetails")
+    @FormUrlEncoded
+    Call<List<OrderModel>> getOrderDetails(@Field("CustomerId") String CustomerId);
+
+    @POST("getBalance")
+    @FormUrlEncoded
+    Call<BalanceModel> getBalance(@Field("patientId") String patientId);
 }

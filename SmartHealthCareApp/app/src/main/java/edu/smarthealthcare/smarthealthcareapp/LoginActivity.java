@@ -90,7 +90,12 @@ public class LoginActivity extends AppCompatActivity {
                                 btnLogin.setProgress(0);
                             }
                         },2000);
-                        Toast.makeText(LoginActivity.this, R.string.error_no_internet_connection, Toast.LENGTH_SHORT).show();
+                        new MaterialDialog.Builder(LoginActivity.this)
+                                .title("No Internet")
+                                .content("Please check your WiFi/Mobile Data settings and try again.")
+                                .positiveText("OK")
+                                .positiveColor(ContextCompat.getColor(LoginActivity.this, R.color.material_green))
+                                .build().show();
                     }
                 }
 
@@ -128,8 +133,11 @@ public class LoginActivity extends AppCompatActivity {
                         SharedPreferenceReader.createLoginSession(LoginActivity.this,patientModel.getEmail(),patientModel.getPassword(),patientModel.getId(),patientModel.getFirstName() + " " +patientModel.getLastName());
                         Intent i = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(i);
+                        finish();
 
                     }
+                }else{
+                    Toast.makeText(LoginActivity.this, "Something Wrong, Try again later!", Toast.LENGTH_LONG).show();
                 }
 
 

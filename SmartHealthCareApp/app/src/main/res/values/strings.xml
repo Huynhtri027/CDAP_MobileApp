@@ -11,7 +11,8 @@
     <string name="action_map">Map</string>
     <string name="action_notification">Notification</string>
     <string name="email_address">Email Address</string>
-    <string name="username_signup">User Name</string>
+    <string name="userfirstname_signup">First Name</string>
+    <string name="userlastname_signup">Last Name</string>
     <string name="password">Password</string>
     <string name="password_confirm">Confirm Password</string>
     <string name="already_have_an_account">Already have an account</string>
@@ -38,10 +39,15 @@
     </string-array>
 
 
-
     <!--API KEY-->
     <string name="api_key">AIzaSyDuFW_FH0MH0nWJkbFLenMIzFlawEHyoAM</string>
     <string name="confirm">Confirm</string>
     <string name="Confirm_Order">Confirm Order</string>
     <string name="error_no_internet_connection">No internet connection!. Check your internet connection and try again</string>
+    <string name="age">Age</string>
+    <string name="address">Addess</string>
+    <string name="number">Mobile Number</string>
+    <string name="rfidCode">RFID Code</string>
+    <string name="username_signup">Email ID</string>
+    <string name="available_location">Available Locations</string>
 </resources>
