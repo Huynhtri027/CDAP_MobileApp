@@ -181,7 +181,8 @@
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="70dp">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/txt_user_confirm_password_prof"
@@ -197,6 +198,7 @@
             </LinearLayout>
 
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
