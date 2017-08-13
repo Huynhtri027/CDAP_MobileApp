@@ -154,12 +154,12 @@ public class ActivityKitDetails extends AppCompatActivity {
                         }
                     });
 
-                    btnProductAvail.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            createAvailableDialog(global_product_id);
-                        }
-                    });
+//                    btnProductAvail.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            createAvailableDialog(global_product_id);
+//                        }
+//                    });
 
                     progressDialog.cancel();
 
@@ -179,14 +179,14 @@ public class ActivityKitDetails extends AppCompatActivity {
         });
     }
 
-    private void createAvailableDialog(String global_product_id) {
-
-        View mView = getLayoutInflater().inflate(R.layout.fragment_view_product_location, null);
-        dialog = new MaterialDialog.Builder(ActivityKitDetails.this);
-        dialog.title(R.string.available_location);
-
-
-    }
+//    private void createAvailableDialog(String global_product_id) {
+//
+//        View mView = getLayoutInflater().inflate(R.layout.fragment_view_product_location, null);
+//        dialog = new MaterialDialog.Builder(ActivityKitDetails.this);
+//        dialog.title(R.string.available_location);
+//
+//
+//    }
 
 
     public void createDialog(String product_name, String product_id, final String price){

@@ -133,7 +133,7 @@
                             android:textSize="18sp"/>
 
                         <RadioGroup
-                            android:id="@+id/radioGroupAnswers"
+                            android:id="@+id/radioGroupGenderReg"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="left"
@@ -141,14 +141,14 @@
                             android:visibility="visible">
 
                             <RadioButton
-                                android:id="@+id/radio_male"
+                                android:id="@+id/radio_male_reg"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="3dp"
                                 android:text="Male" />
 
                             <RadioButton
-                                android:id="@+id/radio_female"
+                                android:id="@+id/radio_female_reg"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="3dp"
@@ -166,7 +166,7 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="sans-serif"
                                 android:hint="@string/age"
-                                android:inputType="text" />
+                                android:inputType="number" />
 
                         </android.support.design.widget.TextInputLayout>
 
@@ -275,7 +275,7 @@
                             app:pb_colorPressed="@color/colorPrimaryDark"
                             app:pb_colorProgress="@android:color/white"
                             app:pb_textComplete="Success"
-                            app:pb_textError="Login Failed"
+                            app:pb_textError="Signup Failed"
                             app:pb_textProgress="Signing Up" />
 
 
