@@ -99,7 +99,7 @@ public class BlanceFragment extends Fragment {
                     }else{
 
                         textViewCurrentBalance.setText("Rs. "+balanceModel.getBalance().toString());
-                        textViewValidTill.setText("Valid Till: \n"+balanceModel.getAddedDate().toString());
+                        textViewValidTill.setText("Valid Till: \n"+balanceModel.getValidTill().toString());
                         progressDialog.cancel();
                     }
 

@@ -186,8 +186,7 @@ public class SignUpActivity extends AppCompatActivity {
                     }
 
                 }else{
-
-
+                    btnSignup.setProgress(-1);
                     Toast.makeText(SignUpActivity.this, "Something Wrong, Try again later!", Toast.LENGTH_LONG).show();
                 }
             }

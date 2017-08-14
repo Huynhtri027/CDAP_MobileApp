@@ -65,7 +65,9 @@
                         android:hint="@string/email_address"
                         android:inputType="textEmailAddress"
                         android:maxLines="1"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:editable="false"
+                        android:focusable="false"/>
 
                 </android.support.design.widget.TextInputLayout>
 

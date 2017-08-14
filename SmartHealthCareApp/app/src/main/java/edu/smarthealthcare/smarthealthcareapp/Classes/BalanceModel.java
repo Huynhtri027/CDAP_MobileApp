@@ -9,6 +9,7 @@ public class BalanceModel {
     private String PatientId;
     private String Balance;
     private String AddedDate;
+    private String ValidTill;
 
     public String getPatientId() {
         return PatientId;
@@ -32,5 +33,13 @@ public class BalanceModel {
 
     public void setAddedDate(String addedDate) {
         AddedDate = addedDate;
+    }
+
+    public String getValidTill() {
+        return ValidTill;
+    }
+
+    public void setValidTill(String validTill) {
+        ValidTill = validTill;
     }
 }

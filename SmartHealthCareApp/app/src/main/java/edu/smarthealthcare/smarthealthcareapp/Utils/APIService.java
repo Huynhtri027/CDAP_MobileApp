@@ -31,10 +31,10 @@ public interface APIService {
                                              @Field("Irfid") String Urfid, @Field("Ipwd") String Upwd,@Field("Igenradio") String Igenradio);
     @POST("update_profile")
     @FormUrlEncoded
-    Call<ServerResponse> updatePatientData(@Field("Ifname") String Ufname, @Field("Ilname") String Ulname,
-                                             @Field("Iemail") String Uemail, @Field("Iage") String Uage,
-                                             @Field("IaddCustomer") String UaddCustomer, @Field("ItelCustomer") String UtelCustomer,
-                                             @Field("Irfid") String Urfid, @Field("Ipwd") String Upwd,@Field("Igenradio") String Igenradio);
+    Call<ServerResponse> updatePatientData(@Field("Ufname") String Ufname, @Field("Ulname") String Ulname,
+                                             @Field("Uemail") String Uemail, @Field("Uage") String Uage,
+                                             @Field("UaddCustomer") String UaddCustomer, @Field("UtelCustomer") String UtelCustomer,
+                                             @Field("Urfid") String Urfid, @Field("Upwd") String Upwd,@Field("Ugenradio") String Igenradio);
 
 
 
