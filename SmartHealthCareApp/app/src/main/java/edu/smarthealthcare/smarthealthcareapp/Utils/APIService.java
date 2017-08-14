@@ -7,6 +7,7 @@ import edu.smarthealthcare.smarthealthcareapp.Classes.BalanceModel;
 import edu.smarthealthcare.smarthealthcareapp.Classes.FirstAidKitModel;
 import edu.smarthealthcare.smarthealthcareapp.Classes.OrderModel;
 import edu.smarthealthcare.smarthealthcareapp.Classes.PatientModel;
+import edu.smarthealthcare.smarthealthcareapp.Classes.PurchaseHistoryModel;
 import edu.smarthealthcare.smarthealthcareapp.Classes.ServerResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -56,4 +57,8 @@ public interface APIService {
     @POST("getBalance")
     @FormUrlEncoded
     Call<BalanceModel> getBalance(@Field("patientId") String patientId);
+
+    @POST("getHistory")
+    @FormUrlEncoded
+    Call<List<PurchaseHistoryModel>> getHistory(@Field("customerId") String customerId);
 }

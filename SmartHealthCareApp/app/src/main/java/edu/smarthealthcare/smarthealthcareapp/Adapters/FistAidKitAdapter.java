@@ -57,7 +57,7 @@ public class FistAidKitAdapter extends RecyclerView.Adapter<FistAidKitAdapter.Re
 
             if (!items.getImage().isEmpty() || !(items.getImage() == "") || !(items.getImage() == null)){
                 Picasso.with(imageViewFirstAidCard.getContext())
-                        .load("http://shabeeru19.000webhostapp.com/learnenglish/images/stories/"+items.getImage().toString())
+                        .load("http://smarthealthcaresystem.000webhostapp.com/assets/img/"+items.getImage().toString())
                         .placeholder(R.drawable.default_image)
                         .error(R.drawable.default_image)
                         .into(imageViewFirstAidCard);

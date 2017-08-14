@@ -1,5 +1,6 @@
 package edu.smarthealthcare.smarthealthcareapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -23,11 +25,16 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import edu.smarthealthcare.smarthealthcareapp.Fragments.BlanceFragment;
 import edu.smarthealthcare.smarthealthcareapp.Fragments.FragmentFirstAidKit;
 import edu.smarthealthcare.smarthealthcareapp.Fragments.FragmentMyAccount;
+import edu.smarthealthcare.smarthealthcareapp.Fragments.KitExpiryFragment;
 import edu.smarthealthcare.smarthealthcareapp.Fragments.OrdersFragment;
+import edu.smarthealthcare.smarthealthcareapp.Utils.NetConnect;
 import edu.smarthealthcare.smarthealthcareapp.Utils.SharedPreferenceReader;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    TextView tvHeaderName,tvHeaderEmail;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +52,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        Toast.makeText(MainActivity.this, "User: " + SharedPreferenceReader.getUserName(this), Toast.LENGTH_LONG).show();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -53,14 +59,47 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+//        navigationView.setNavigationItemSelectedListener(this);
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View navHeaderView=navigationView.getHeaderView(0);
 
-        FragmentFirstAidKit fragmentFirstAidKit = new FragmentFirstAidKit();
-        android.support.v4.app.FragmentTransaction fragmentTransaction =
-                getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragmentFirstAidKit);
-        fragmentTransaction.commit();
+        tvHeaderName= (TextView) navHeaderView.findViewById(R.id.txtUserNameHead);
+        tvHeaderEmail= (TextView) navHeaderView.findViewById(R.id.txtUserEmailHead);
+
+        if (NetConnect.isNetworkConnected(MainActivity.this)){
+
+            progressDialog = new ProgressDialog(MainActivity.this);
+            progressDialog.show();
+            progressDialog.setTitle("Please wait!!");
+            progressDialog.setMessage("Please wait!!");
+            progressDialog.setCancelable(false);
+
+            String user_name = SharedPreferenceReader.getUserName(MainActivity.this);
+            String user_email = SharedPreferenceReader.getUserEmail(MainActivity.this);
+
+            tvHeaderName.setText(user_name);
+            tvHeaderEmail.setText(user_email);
+
+            FragmentFirstAidKit fragmentFirstAidKit = new FragmentFirstAidKit();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragmentFirstAidKit);
+            fragmentTransaction.commit();
+
+            progressDialog.cancel();
+
+        }else {
+
+            new MaterialDialog.Builder(MainActivity.this)
+                    .title("No Internet")
+                    .content("Please check your WiFi/Mobile Data settings and try again.")
+                    .positiveText("OK")
+                    .positiveColor(ContextCompat.getColor(MainActivity.this, R.color.material_green))
+                    .build().show();
+        }
     }
 
     @Override
@@ -139,7 +178,10 @@ public class MainActivity extends AppCompatActivity
                 setTitle(item.getTitle());
             }
         } else if (id == R.id.nav_expiry) {
-
+            if (!(f instanceof KitExpiryFragment)){
+                showFragment(KitExpiryFragment.class);
+                setTitle(item.getTitle());
+            }
 
         } else if (id == R.id.nav_myaccount) {
             if (!(f instanceof FragmentMyAccount)){

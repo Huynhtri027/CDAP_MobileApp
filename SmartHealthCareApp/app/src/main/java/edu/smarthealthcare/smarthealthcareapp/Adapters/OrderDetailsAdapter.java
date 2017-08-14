@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -58,10 +59,10 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<OrderDetailsAdapte
             txtPriceOrders.setText("Rs. "+item.getTotalAmount());
             txtDateOrders.setText(item.getAddedDate());
             txtStatusCardOrders.setText(item.getDeliveryStatus());
-
+//            Toast.makeText(itemView.getContext(),items.getImage().toString() , Toast.LENGTH_LONG).show();
             if (!items.getImage().isEmpty() || !(items.getImage() == "") || !(items.getImage() == null)){
                 Picasso.with(imageViewOrders.getContext())
-                        .load("http://shabeeru19.000webhostapp.com/learnenglish/images/stories/"+items.getImage().toString())
+                        .load("http://smarthealthcaresystem.000webhostapp.com/assets/img/"+items.getImage().toString())
                         .placeholder(R.drawable.default_image)
                         .error(R.drawable.default_image)
                         .into(imageViewOrders);

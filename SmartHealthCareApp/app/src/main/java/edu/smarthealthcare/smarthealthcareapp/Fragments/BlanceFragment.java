@@ -6,6 +6,8 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +16,14 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import edu.smarthealthcare.smarthealthcareapp.Adapters.OrderDetailsAdapter;
+import edu.smarthealthcare.smarthealthcareapp.Adapters.PurchaseHistoryAdapter;
 import edu.smarthealthcare.smarthealthcareapp.Classes.BalanceModel;
 import edu.smarthealthcare.smarthealthcareapp.Classes.OrderModel;
+import edu.smarthealthcare.smarthealthcareapp.Classes.PurchaseHistoryModel;
 import edu.smarthealthcare.smarthealthcareapp.R;
 import edu.smarthealthcare.smarthealthcareapp.Utils.APIService;
 import edu.smarthealthcare.smarthealthcareapp.Utils.NetConnect;
@@ -31,6 +37,13 @@ import retrofit2.Response;
  * A simple {@link Fragment} subclass.
  */
 public class BlanceFragment extends Fragment {
+
+    private List<PurchaseHistoryModel>
+            purchaseHistoryModelList = new ArrayList<PurchaseHistoryModel>();
+    PurchaseHistoryAdapter purchaseHistoryAdapter;
+
+    private RecyclerView recyclerView;
+    private LinearLayoutManager linearLayoutManager;
 
     private View mView;
     private TextView textViewCurrentBalance, textViewValidTill;
@@ -51,6 +64,9 @@ public class BlanceFragment extends Fragment {
         textViewValidTill = (TextView) mView.findViewById(R.id.textViewValidTill);
         textViewCurrentBalance = (TextView) mView.findViewById(R.id.textViewCurrentBalance);
 
+
+
+
         if (NetConnect.isNetworkConnected(getContext())){
 
             progressDialog = new ProgressDialog(getContext());
@@ -61,6 +77,7 @@ public class BlanceFragment extends Fragment {
 
             String user_id = SharedPreferenceReader.getUserID(getContext());
             loadCurrentBalance(user_id);
+            loadPurchaseHistory(user_id);
         }else {
 
             new MaterialDialog.Builder(getContext())
@@ -71,7 +88,61 @@ public class BlanceFragment extends Fragment {
                     .build().show();
         }
 
+        recyclerView = (RecyclerView) mView.findViewById(R.id.listview_history_items);
+        linearLayoutManager = new LinearLayoutManager(mView.getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        purchaseHistoryAdapter = new PurchaseHistoryAdapter(purchaseHistoryModelList);
+        recyclerView.setAdapter(purchaseHistoryAdapter);
+
         return mView;
+    }
+
+    private void loadPurchaseHistory(String user_id) {
+
+        APIService apiService = ServiceGenerator.createService(APIService.class);
+        Call<List<PurchaseHistoryModel>> call = apiService.getHistory(user_id);
+
+        call.enqueue(new Callback<List<PurchaseHistoryModel>>() {
+            @Override
+            public void onResponse(Call<List<PurchaseHistoryModel>> call, Response<List<PurchaseHistoryModel>> response) {
+
+                if (response.isSuccessful()){
+
+                    if (response.body().isEmpty()){
+
+                        new MaterialDialog.Builder(getContext())
+                                .title("No data found")
+                                .content("Sorry, We can not find relavent data in our server!.")
+                                .positiveText("Ok")
+                                .positiveColor(ContextCompat.getColor(getContext(), R.color.material_green))
+                                .build().show();
+                        progressDialog.cancel();
+
+                    }else{
+
+                        purchaseHistoryModelList.clear();
+                        purchaseHistoryModelList.addAll(response.body());
+
+                        purchaseHistoryAdapter.setPurchaseHistoryList(purchaseHistoryModelList);
+                        purchaseHistoryAdapter.notifyDataSetChanged();
+                        progressDialog.cancel();
+                    }
+
+                }else{
+
+                    Toast.makeText(getContext(), "Something Wrong, Try again later!", Toast.LENGTH_LONG).show();
+                    progressDialog.cancel();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<PurchaseHistoryModel>> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                progressDialog.cancel();
+            }
+        });
     }
 
     private void loadCurrentBalance(String user_id) {
@@ -104,7 +175,6 @@ public class BlanceFragment extends Fragment {
                     }
 
                 }else{
-
                     Toast.makeText(getContext(), "Something Wrong, Try again later!", Toast.LENGTH_LONG).show();
                     progressDialog.cancel();
                 }

@@ -15,7 +15,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
 
-    private static final String BASE_URL = "http://10.0.2.2/CDAP_Website/MobileAppController/";
+    private static final String BASE_URL = "https://smarthealthcaresystem.000webhostapp.com/MobileAppController/";
+//    private static final String BASE_URL = "http://10.0.2.2/CDAP_Website/MobileAppController/";
 
     private static OkHttpClient.Builder httpClient =
             new OkHttpClient.Builder().addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)).connectTimeout(30,TimeUnit.SECONDS).readTimeout(30,TimeUnit.SECONDS);

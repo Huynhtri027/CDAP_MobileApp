@@ -48,7 +48,7 @@
                     android:id="@+id/txtAidPrice"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingLeft="20dp"
+                    android:paddingLeft="10dp"
                     android:text="Price"
                     android:textColor="@color/material_gray"
                     android:layout_margin="3dp"
