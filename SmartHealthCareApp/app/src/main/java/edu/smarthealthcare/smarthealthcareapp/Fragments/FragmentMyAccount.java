@@ -245,6 +245,9 @@ public class FragmentMyAccount extends Fragment {
                             radio_female_Prof.setChecked(true);
                         }
 
+                        SharedPreferenceReader.createLoginSession(getContext(),patientModel.getEmail(),patientModel.getPassword(),patientModel.getId(),patientModel.getFirstName() + " " +patientModel.getLastName());
+
+
                         progressDialog.cancel();
                     }
                 }else{
