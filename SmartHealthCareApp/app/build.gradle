@@ -37,6 +37,7 @@ dependencies {
     compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.0' //Button
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
     compile 'com.google.android.gms:play-services:11.0.1' // For Map
+    compile 'com.google.android.gms:play-services-location:11.0.1' // For Map
     compile 'com.afollestad.material-dialogs:core:0.9.4.5'
     compile 'com.squareup.retrofit2:retrofit:2.2.0' // Network calls
     compile 'com.squareup.okhttp3:okhttp:3.6.0' // Retrofit need this

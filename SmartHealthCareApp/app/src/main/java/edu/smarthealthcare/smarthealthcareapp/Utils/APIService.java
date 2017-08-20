@@ -68,6 +68,10 @@ public interface APIService {
     @FormUrlEncoded
     Call<List<DrugLocationModel>> getDrugPackAvailableLocation(@Field("PackId") String PackId);
 
-    @GET("getKioskLocation")
+    @GET("getKioskLocationByDrug")
     Call<List<KioskModel>> getKioskLocation();
+
+    @POST("deleteOrderDetails")
+    @FormUrlEncoded
+    Call<ServerResponse> deleteOrderDetails(@Field("OrderId") String OrderId);
 }
