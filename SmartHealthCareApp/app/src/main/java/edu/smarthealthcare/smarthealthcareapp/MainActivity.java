@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import edu.smarthealthcare.smarthealthcareapp.Fragments.AboutUsFragment;
 import edu.smarthealthcare.smarthealthcareapp.Fragments.BlanceFragment;
 import edu.smarthealthcare.smarthealthcareapp.Fragments.FragmentFirstAidKit;
 import edu.smarthealthcare.smarthealthcareapp.Fragments.FragmentMyAccount;
@@ -190,6 +191,10 @@ public class MainActivity extends AppCompatActivity
             }
         } else if (id == R.id.nav_aboutus) {
 
+            if (!(f instanceof AboutUsFragment)){
+                showFragment(AboutUsFragment.class);
+                setTitle(item.getTitle());
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
