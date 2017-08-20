@@ -9,6 +9,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -25,8 +27,12 @@ import com.afollestad.materialdialogs.internal.MDButton;
 import com.gigamole.slideimageview.lib.SlideImageView;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import edu.smarthealthcare.smarthealthcareapp.Adapters.DrugLocationAdapter;
+import edu.smarthealthcare.smarthealthcareapp.Adapters.FistAidKitAdapter;
+import edu.smarthealthcare.smarthealthcareapp.Classes.DrugLocationModel;
 import edu.smarthealthcare.smarthealthcareapp.Classes.FirstAidKitModel;
 import edu.smarthealthcare.smarthealthcareapp.Classes.OrderModel;
 import edu.smarthealthcare.smarthealthcareapp.Classes.SectionsPagerAdaper;
@@ -63,6 +69,14 @@ public class ActivityKitDetails extends AppCompatActivity {
     private TextView txtProductDescDetails, txtProductPriceProdDetails,txtProductNameProdDetails;
     private ImageView imageViewProductDetail;
 
+
+    private List<DrugLocationModel>
+            drugLocationModelList = new ArrayList<DrugLocationModel>();
+    DrugLocationAdapter drugLocationAdapter;
+
+    private RecyclerView recyclerView;
+    private LinearLayoutManager linearLayoutManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +100,7 @@ public class ActivityKitDetails extends AppCompatActivity {
         imageViewProductDetail = (ImageView)findViewById(R.id.imageViewProductDetail);
 
         btnOder = (Button)findViewById(R.id.btn_order_now);
+        btnProductAvail = (Button)findViewById(R.id.btnProductAvail);
 
         if (NetConnect.isNetworkConnected(this)){
 
@@ -139,7 +154,7 @@ public class ActivityKitDetails extends AppCompatActivity {
 
                     if (!firstAidKitModel.getImage().isEmpty() || !(firstAidKitModel.getImage() == "") || !(firstAidKitModel.getImage() == null)){
                         Picasso.with(imageViewProductDetail.getContext())
-                                .load("http://shabeeru19.000webhostapp.com/learnenglish/images/stories/"+firstAidKitModel.getImage().toString())
+                                .load("http://smarthealthcaresystem.000webhostapp.com/assets/img/"+firstAidKitModel.getImage().toString())
                                 .placeholder(R.drawable.default_image)
                                 .error(R.drawable.default_image)
                                 .into(imageViewProductDetail);
@@ -154,12 +169,13 @@ public class ActivityKitDetails extends AppCompatActivity {
                         }
                     });
 
-//                    btnProductAvail.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            createAvailableDialog(global_product_id);
-//                        }
-//                    });
+                    btnProductAvail.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            getDrugPackAvailableLocation(global_product_id);
+                            createAvailableDialog(global_product_id);
+                        }
+                    });
 
                     progressDialog.cancel();
 
@@ -179,14 +195,79 @@ public class ActivityKitDetails extends AppCompatActivity {
         });
     }
 
-//    private void createAvailableDialog(String global_product_id) {
-//
-//        View mView = getLayoutInflater().inflate(R.layout.fragment_view_product_location, null);
-//        dialog = new MaterialDialog.Builder(ActivityKitDetails.this);
-//        dialog.title(R.string.available_location);
-//
-//
-//    }
+    private void getDrugPackAvailableLocation(String global_product_id) {
+
+        APIService apiService = ServiceGenerator.createService(APIService.class);
+        Call<List<DrugLocationModel>> call = apiService.getDrugPackAvailableLocation(global_product_id);
+
+        call.enqueue(new Callback<List<DrugLocationModel>>() {
+            @Override
+            public void onResponse(Call<List<DrugLocationModel>> call, Response<List<DrugLocationModel>> response) {
+
+                if (response.isSuccessful()){
+
+                    if (response.body().isEmpty()){
+
+                        new MaterialDialog.Builder(ActivityKitDetails.this)
+                                .title("No data found")
+                                .content("Sorry, We can not find relavent data in our server!.")
+                                .positiveText("Ok")
+                                .positiveColor(ContextCompat.getColor(ActivityKitDetails.this, R.color.material_green))
+                                .build().show();
+                        progressDialog.cancel();
+
+                    }else{
+
+                        drugLocationModelList.clear();
+                        drugLocationModelList.addAll(response.body());
+
+                        drugLocationAdapter.setDrugLocationModelList(drugLocationModelList);
+                        drugLocationAdapter.notifyDataSetChanged();
+                        progressDialog.cancel();
+                    }
+
+                }else{
+
+                    Toast.makeText(ActivityKitDetails.this, "Something Wrong, Try again later!", Toast.LENGTH_LONG).show();
+                    progressDialog.cancel();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<DrugLocationModel>> call, Throwable t) {
+
+                Toast.makeText(ActivityKitDetails.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                progressDialog.cancel();
+            }
+        });
+    }
+
+    private void createAvailableDialog(String global_product_id) {
+
+        View mView = getLayoutInflater().inflate(R.layout.drug_location_layout, null);
+        dialog = new MaterialDialog.Builder(ActivityKitDetails.this);
+
+
+
+        recyclerView = (RecyclerView) mView.findViewById(R.id.rv_drug_location);
+        linearLayoutManager = new LinearLayoutManager(mView.getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        drugLocationAdapter = new DrugLocationAdapter(drugLocationModelList);
+        recyclerView.setAdapter(drugLocationAdapter);
+
+
+        dialog.title(R.string.available_location);
+
+
+        dialog.customView(mView, true);
+        dialog.negativeText(R.string.close);
+        dialog.cancelable(false);
+        dialog.build();
+        dialog.show();
+
+    }
 
 
     public void createDialog(String product_name, String product_id, final String price){

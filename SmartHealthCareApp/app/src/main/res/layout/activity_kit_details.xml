@@ -36,8 +36,7 @@
                 android:layout_height="350dp"
                 app:layout_collapseMode="parallax"
                 android:contentDescription="What the is this?"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/back"/>
+                android:scaleType="centerCrop"/>
 
             <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"

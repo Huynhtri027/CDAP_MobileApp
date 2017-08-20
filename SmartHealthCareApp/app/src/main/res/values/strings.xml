@@ -50,4 +50,5 @@
     <string name="rfidCode">RFID Code</string>
     <string name="username_signup">Email ID</string>
     <string name="available_location">Available Locations</string>
+    <string name="close">Close</string>
 </resources>

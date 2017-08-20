@@ -33,17 +33,17 @@ dependencies {
     compile 'com.android.support:design:25.2.0'
     compile 'com.android.support:cardview-v7:25.2.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.1'
-    compile 'com.github.gigamole.slideimageview:library:1.1.4'
-    compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.0'
+    compile 'com.github.gigamole.slideimageview:library:1.1.4' // Slider Image View
+    compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.0' //Button
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
-    compile 'com.google.android.gms:play-services:11.0.1'
+    compile 'com.google.android.gms:play-services:11.0.1' // For Map
     compile 'com.afollestad.material-dialogs:core:0.9.4.5'
-    compile 'com.squareup.retrofit2:retrofit:2.2.0'
-    compile 'com.squareup.okhttp3:okhttp:3.6.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.squareup.retrofit2:retrofit:2.2.0' // Network calls
+    compile 'com.squareup.okhttp3:okhttp:3.6.0' // Retrofit need this
+    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'// Retrofit need this
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0' // Retrofit need this
+    compile 'com.squareup.picasso:picasso:2.5.2' // To download pictures
     compile 'com.android.support:support-v4:25.3.1'
-    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.android.support:multidex:1.0.1' // Support old android versions
     testCompile 'junit:junit:4.12'
 }

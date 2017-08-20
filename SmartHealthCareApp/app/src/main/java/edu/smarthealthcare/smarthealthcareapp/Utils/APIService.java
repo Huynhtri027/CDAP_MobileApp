@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import edu.smarthealthcare.smarthealthcareapp.Classes.BalanceModel;
+import edu.smarthealthcare.smarthealthcareapp.Classes.DrugLocationModel;
 import edu.smarthealthcare.smarthealthcareapp.Classes.FirstAidKitModel;
+import edu.smarthealthcare.smarthealthcareapp.Classes.KioskModel;
 import edu.smarthealthcare.smarthealthcareapp.Classes.OrderModel;
 import edu.smarthealthcare.smarthealthcareapp.Classes.PatientModel;
 import edu.smarthealthcare.smarthealthcareapp.Classes.PurchaseHistoryModel;
@@ -61,4 +63,11 @@ public interface APIService {
     @POST("getHistory")
     @FormUrlEncoded
     Call<List<PurchaseHistoryModel>> getHistory(@Field("customerId") String customerId);
+
+    @POST("kioskSearchByDrugAvail")
+    @FormUrlEncoded
+    Call<List<DrugLocationModel>> getDrugPackAvailableLocation(@Field("PackId") String PackId);
+
+    @GET("getKioskLocation")
+    Call<List<KioskModel>> getKioskLocation();
 }
