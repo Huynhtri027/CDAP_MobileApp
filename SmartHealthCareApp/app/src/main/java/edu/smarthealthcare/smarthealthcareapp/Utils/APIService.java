@@ -5,6 +5,7 @@ import java.util.List;
 
 import edu.smarthealthcare.smarthealthcareapp.Classes.BalanceModel;
 import edu.smarthealthcare.smarthealthcareapp.Classes.DrugLocationModel;
+import edu.smarthealthcare.smarthealthcareapp.Classes.ExpiryModel;
 import edu.smarthealthcare.smarthealthcareapp.Classes.FirstAidKitModel;
 import edu.smarthealthcare.smarthealthcareapp.Classes.KioskModel;
 import edu.smarthealthcare.smarthealthcareapp.Classes.OrderModel;
@@ -71,7 +72,22 @@ public interface APIService {
     @GET("getKioskLocationByDrug")
     Call<List<KioskModel>> getKioskLocation();
 
+    @GET("getKioskLocationByDrug")
+    Call<List<KioskModel>> getKioskLocationByDrugName(@Field("drug_name") String drug_name);
+
     @POST("deleteOrderDetails")
     @FormUrlEncoded
     Call<ServerResponse> deleteOrderDetails(@Field("OrderId") String OrderId);
+
+    @POST("requestExpiryDateNotification")
+    @FormUrlEncoded
+    Call<ServerResponse> requestExpiryDateNotification(@Field("patientID") String patientID, @Field("barCode") String barCode);
+
+    @POST("getExpiryDetails")
+    @FormUrlEncoded
+    Call<List<ExpiryModel>> getExpiryDetails(@Field("patientId") String patientId);
+
+
+
+
 }

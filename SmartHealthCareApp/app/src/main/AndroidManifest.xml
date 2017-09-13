@@ -34,17 +34,17 @@
             android:name=".LoginActivity"
             android:label="@string/app_login"
             android:parentActivityName=".GetStartActivity" />
-        <activity android:name=".GetStartActivity">
-        </activity>
+        <activity android:name=".GetStartActivity"></activity>
         <activity
             android:name=".SignUpActivity"
             android:label="@string/app_signup"
             android:parentActivityName=".GetStartActivity" />
         <activity
             android:name=".ActivityKitDetails"
-            android:parentActivityName=".MainActivity"></activity>
-        <activity android:name=".MapActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".MapActivity"
+            android:parentActivityName=".MainActivity" />
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
@@ -60,6 +60,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ScannerActivity"></activity>
     </application>
 
 </manifest>

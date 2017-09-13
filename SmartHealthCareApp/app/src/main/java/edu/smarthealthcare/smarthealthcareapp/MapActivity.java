@@ -36,6 +36,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.smarthealthcare.smarthealthcareapp.Classes.DrugLocationModel;
 import edu.smarthealthcare.smarthealthcareapp.Classes.FirstAidKitModel;
 import edu.smarthealthcare.smarthealthcareapp.Classes.KioskModel;
 import edu.smarthealthcare.smarthealthcareapp.Utils.APIService;
@@ -280,5 +281,50 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+
+    public void searchKioskByDrugName(String drug_name){
+
+        APIService apiService = ServiceGenerator.createService(APIService.class);
+        Call<List<KioskModel>> call = apiService.getKioskLocationByDrugName(drug_name);
+
+        call.enqueue(new Callback<List<KioskModel>>() {
+            @Override
+            public void onResponse(Call<List<KioskModel>> call, Response<List<KioskModel>> response) {
+                if (response.isSuccessful()){
+
+                    if (response.body().isEmpty()){
+
+                        new MaterialDialog.Builder(MapActivity.this)
+                                .title("No data found")
+                                .content("Sorry, We can not find relavent data in our server!.")
+                                .positiveText("Ok")
+                                .positiveColor(ContextCompat.getColor(MapActivity.this, R.color.material_green))
+                                .build().show();
+                        progressDialog.cancel();
+
+                    }else{
+
+                        kioskModelList.clear();
+                        kioskModelList.addAll(response.body());
+
+                        showMarkers();
+
+                        progressDialog.cancel();
+                    }
+
+                }else{
+
+                    Toast.makeText(MapActivity.this, "Something Wrong, Try again later!", Toast.LENGTH_LONG).show();
+                    progressDialog.cancel();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<KioskModel>> call, Throwable t) {
+                Toast.makeText(MapActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
