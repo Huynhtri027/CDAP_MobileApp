@@ -87,6 +87,9 @@ public interface APIService {
     @FormUrlEncoded
     Call<List<ExpiryModel>> getExpiryDetails(@Field("patientId") String patientId);
 
+    @POST("updateToken")
+    @FormUrlEncoded
+    Call<ServerResponse> updateFcmToken(@Field("email") String email, @Field("token") String token);
 
 
 

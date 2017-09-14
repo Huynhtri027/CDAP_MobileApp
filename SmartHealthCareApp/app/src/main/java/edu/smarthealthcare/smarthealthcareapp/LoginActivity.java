@@ -25,6 +25,7 @@ import org.w3c.dom.Text;
 import java.util.HashMap;
 
 import edu.smarthealthcare.smarthealthcareapp.Classes.PatientModel;
+import edu.smarthealthcare.smarthealthcareapp.Classes.ServerResponse;
 import edu.smarthealthcare.smarthealthcareapp.Utils.APIService;
 import edu.smarthealthcare.smarthealthcareapp.Utils.NetConnect;
 import edu.smarthealthcare.smarthealthcareapp.Utils.ServiceGenerator;
@@ -32,6 +33,8 @@ import edu.smarthealthcare.smarthealthcareapp.Utils.SharedPreferenceReader;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static java.security.AccessController.getContext;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -81,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                         String password = txtPassword.getText().toString();
 
                         login(email,password);
+
                     }
                     else{
                         btnLogin.setProgress(-1);
@@ -129,8 +133,10 @@ public class LoginActivity extends AppCompatActivity {
                         btnLogin.setProgress(100);
                         PatientModel patientModel = response.body();
 
-
                         SharedPreferenceReader.createLoginSession(LoginActivity.this,patientModel.getEmail(),patientModel.getPassword(),patientModel.getId(),patientModel.getFirstName() + " " +patientModel.getLastName());
+                        String token=SharedPreferenceReader.getFirebaseToken(getApplicationContext());
+                        String email=SharedPreferenceReader.getUserEmail(getApplicationContext());
+                        updateToken(email,token);
                         Intent i = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(i);
                         finish();
@@ -146,6 +152,58 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PatientModel> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+    private void updateToken(String email, String token) {
+
+        APIService apiService = ServiceGenerator.createService(APIService.class);
+        Call<ServerResponse> call = apiService.updateFcmToken(email,token);
+        call.enqueue(new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+
+                if (response.isSuccessful()){
+
+                    if (response.body() == null){
+
+                        btnLogin.setProgress(-1);
+
+                        new MaterialDialog.Builder(LoginActivity.this)
+                                .title("No account found")
+                                .content("Sorry, We can not find your account in our server!.")
+                                .positiveText("Ok")
+                                .positiveColor(ContextCompat.getColor(LoginActivity.this, R.color.material_green))
+                                .build().show();
+
+                    }else{
+
+                        btnLogin.setProgress(100);
+                        ServerResponse serverResponse = response.body();
+                        if (serverResponse.getResult()){
+
+                            Toast.makeText(getApplicationContext(), serverResponse.getMessage(), Toast.LENGTH_LONG).show();
+
+
+                        }else{
+
+                            Toast.makeText(getApplicationContext(), serverResponse.getMessage(), Toast.LENGTH_LONG).show();
+
+                        }
+
+                    }
+                }else{
+                    Toast.makeText(LoginActivity.this, "Something Wrong, Try again later!", Toast.LENGTH_LONG).show();
+                }
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });

@@ -3,6 +3,8 @@ package edu.smarthealthcare.smarthealthcareapp.Utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
 /**
  * Created by RG User on 07/27/17.
  */
@@ -17,6 +19,8 @@ public class SharedPreferenceReader {
     private static final String KEY_NAME = "user_name";
     private static final String KEY_IS_LOGGED_IN = "is_logged_in";
     private static final String KEY_PASSWORD = "user_password";
+    private static final String KEY_FIREBASE_TOKEN = "firebase_token";
+
 
 
     public static SharedPreferences getPreferences(Context context) {
@@ -31,7 +35,7 @@ public class SharedPreferenceReader {
         editor.putString(KEY_NAME,user_name);
         editor.putString(KEY_USER_ID,user_id);
         editor.putBoolean(KEY_IS_LOGGED_IN,true);
-//        editor.putString(KEY_FIREBASE_TOKEN, FirebaseInstanceId.getInstance().getToken());
+        editor.putString(KEY_FIREBASE_TOKEN, FirebaseInstanceId.getInstance().getToken());
         editor.putString(KEY_PASSWORD,user_password);
         editor.apply();
     }
@@ -68,11 +72,11 @@ public class SharedPreferenceReader {
         getPreferences(context).edit().putString(KEY_USER_ID,userID).apply();
     }
 
-//    public static String getFirebaseToken(Context context){
-//        return getPreferences(context).getString(KEY_FIREBASE_TOKEN,"");
-//    }
-//
-//    public static void setFirebaseToken(Context context, String token){
-//        getPreferences(context).edit().putString(KEY_FIREBASE_TOKEN,token).apply();
-//    }
+    public static String getFirebaseToken(Context context){
+        return getPreferences(context).getString(KEY_FIREBASE_TOKEN,"");
+    }
+
+    public static void setFirebaseToken(Context context, String token){
+        getPreferences(context).edit().putString(KEY_FIREBASE_TOKEN,token).apply();
+    }
 }

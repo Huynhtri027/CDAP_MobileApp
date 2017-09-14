@@ -18,6 +18,7 @@ public class ServiceGenerator {
 //    private static final String BASE_URL = "http://smarthealthcaresystem.000webhostapp.com/MobileAppController/";
 //    private static final String BASE_URL = "192.168.8.100/Projects/CDAP_Website/MobileAppController/";
     private static final String BASE_URL = "http://10.0.2.2/Projects/CDAP_Website/MobileAppController/";
+//    private static final String BASE_URL = "http://10.0.2.2:8080/CDAP_Website/MobileAppController/";
 
     private static OkHttpClient.Builder httpClient =
             new OkHttpClient.Builder().addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)).connectTimeout(30,TimeUnit.SECONDS).readTimeout(30,TimeUnit.SECONDS);
