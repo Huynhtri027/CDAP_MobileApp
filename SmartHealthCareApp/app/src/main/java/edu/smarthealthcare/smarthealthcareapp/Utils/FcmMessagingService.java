@@ -21,11 +21,13 @@ import edu.smarthealthcare.smarthealthcareapp.R;
  */
 
 public class FcmMessagingService extends FirebaseMessagingService {
+
+    private static int id = 0;
+
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
         String title = remoteMessage.getData().get("title");
         String message = remoteMessage.getData().get("message");
-        String notification = remoteMessage.getData().get("notification");
         String date = remoteMessage.getData().get("date");
         String click_action = remoteMessage.getData().get("clickAction"); //to handle notification click action
 
@@ -38,10 +40,10 @@ public class FcmMessagingService extends FirebaseMessagingService {
         SharedPreferences.Editor editorDateTime = datetime.edit();
         editorDateTime.putString(getString(R.string.FCM_DATE),date);
         editorDateTime.commit();
-        showNotification(title, message, notification,click_action);
+        showNotification(title, message,click_action);
     }
 
-    private void showNotification(String title, String message, String notification, String click_action) {
+    private void showNotification(String title, String message, String click_action) {
         Intent i = new Intent(click_action);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -52,7 +54,6 @@ public class FcmMessagingService extends FirebaseMessagingService {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setAutoCancel(true)
                 .setContentTitle(title)
-                .setContentText(notification)
                 .setSmallIcon(R.drawable.ic_cross)
                 .setDefaults(Notification.DEFAULT_VIBRATE | Notification.DEFAULT_SOUND | Notification.FLAG_SHOW_LIGHTS)
                 .setSound(alarmSound)
@@ -60,7 +61,8 @@ public class FcmMessagingService extends FirebaseMessagingService {
                 .setContentIntent(pendingIntent);
 
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        manager.notify(0,builder.build());
+        manager.notify(id,builder.build());
+        id++;
 
     }
 }
