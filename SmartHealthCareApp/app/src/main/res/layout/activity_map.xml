@@ -22,11 +22,10 @@
         android:layout_below="@+id/app_layout_map"
         android:orientation="vertical">
 
-        <android.support.v7.widget.SearchView
+        <SearchView
+            android:id="@+id/simpleSearchView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </android.support.v7.widget.SearchView>
+            android:layout_height="wrap_content" />
 
         <fragment
             android:id="@+id/fragmentMap"

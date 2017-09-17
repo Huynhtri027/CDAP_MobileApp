@@ -72,8 +72,9 @@ public interface APIService {
     @GET("getKioskLocationByDrug")
     Call<List<KioskModel>> getKioskLocation();
 
-    @GET("getKioskLocationByDrug")
-    Call<List<KioskModel>> getKioskLocationByDrugName(@Field("drug_name") String drug_name);
+    @POST("getKioskLocationByDrug")
+    @FormUrlEncoded
+    Call<List<KioskModel>> getKioskLocationByDrugName(@Field("PackName") String PackName);
 
     @POST("deleteOrderDetails")
     @FormUrlEncoded

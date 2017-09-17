@@ -15,6 +15,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -46,7 +48,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
-        LocationListener {
+        LocationListener, SearchView.OnQueryTextListener {
 
     private GoogleMap mGoogleMap;
     private GoogleApiClient client;
@@ -55,6 +57,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private Marker lastLocationMarker;
     public static final int REQUEST_LOCTION_CODE = 99;
     private ProgressDialog progressDialog;
+
+    private SearchView simpleSearchView;
 
     private List<KioskModel> kioskModelList = new ArrayList<KioskModel>();
 
@@ -72,10 +76,29 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Kiosk Locations");
 
+
         if (googlePlayServiceAvaiable()) {
 
             initMap();
+
+            simpleSearchView = (SearchView) findViewById(R.id.simpleSearchView); // inititate a search view
+            CharSequence query = simpleSearchView.getQuery(); // get the query string currently in the text field
+            simpleSearchView.setOnQueryTextListener(this);
+
         }
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+
+        searchKioskByDrugName(query+"");
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        Log.d("SEARCH_VALUE : " , s+"");
+        return false;
     }
 
     private void initMap() {
@@ -93,6 +116,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void getKioskLocation() {
 
+        kioskModelList.clear();
         APIService apiService = ServiceGenerator.createService(APIService.class);
         Call<List<KioskModel>> call = apiService.getKioskLocation();
 
@@ -286,6 +310,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     public void searchKioskByDrugName(String drug_name){
 
+        Log.d("SEARCH_SUBMIT_VALUE : " , drug_name);
+        kioskModelList.clear();
         APIService apiService = ServiceGenerator.createService(APIService.class);
         Call<List<KioskModel>> call = apiService.getKioskLocationByDrugName(drug_name);
 
