@@ -30,16 +30,6 @@ public class FcmMessagingService extends FirebaseMessagingService {
         String message = remoteMessage.getData().get("message");
         String date = remoteMessage.getData().get("date");
         String click_action = remoteMessage.getData().get("clickAction"); //to handle notification click action
-
-        SharedPreferences messages = getApplicationContext().getSharedPreferences(getString(R.string.FCM_MSG), Context.MODE_PRIVATE);
-        SharedPreferences.Editor editorMessage = messages.edit();
-        editorMessage.putString(getString(R.string.FCM_MSG),message);
-        editorMessage.commit();
-
-        SharedPreferences datetime = getApplicationContext().getSharedPreferences(getString(R.string.FCM_DATE), Context.MODE_PRIVATE);
-        SharedPreferences.Editor editorDateTime = datetime.edit();
-        editorDateTime.putString(getString(R.string.FCM_DATE),date);
-        editorDateTime.commit();
         showNotification(title, message,click_action);
     }
 
