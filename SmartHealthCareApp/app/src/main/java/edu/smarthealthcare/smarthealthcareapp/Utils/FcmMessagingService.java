@@ -30,6 +30,7 @@ public class FcmMessagingService extends FirebaseMessagingService {
         String message = remoteMessage.getData().get("message");
         String date = remoteMessage.getData().get("date");
         String click_action = remoteMessage.getData().get("clickAction"); //to handle notification click action
+
         showNotification(title, message,click_action);
     }
 
@@ -44,6 +45,7 @@ public class FcmMessagingService extends FirebaseMessagingService {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setAutoCancel(true)
                 .setContentTitle(title)
+                .setContentText(message)
                 .setSmallIcon(R.drawable.ic_cross)
                 .setDefaults(Notification.DEFAULT_VIBRATE | Notification.DEFAULT_SOUND | Notification.FLAG_SHOW_LIGHTS)
                 .setSound(alarmSound)
