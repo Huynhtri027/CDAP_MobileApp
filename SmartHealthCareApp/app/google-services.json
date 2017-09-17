@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "954668429671",
+    "firebase_url": "https://smarthealthcaresystem-a9f35.firebaseio.com",
+    "project_id": "smarthealthcaresystem-a9f35",
+    "storage_bucket": "smarthealthcaresystem-a9f35.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:954668429671:android:d272c6fdce90281a",
+        "android_client_info": {
+          "package_name": "edu.smarthealthcare.smarthealthcareapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "954668429671-q7ec6f83rr36m5sm4jqko6b6dh9dcv27.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.smarthealthcare.smarthealthcareapp",
+            "certificate_hash": "eefe71f4f31786db8bbd735db59070738a6981d8"
+          }
+        },
+        {
+          "client_id": "954668429671-hdksrfpc76oin1jrpj6iephq2n6tiasd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_0jW50eVNs5NJv1FRghCme3Tai2vQQC0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "954668429671-hdksrfpc76oin1jrpj6iephq2n6tiasd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

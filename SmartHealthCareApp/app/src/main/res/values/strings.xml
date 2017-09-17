@@ -51,4 +51,6 @@
     <string name="username_signup">Email ID</string>
     <string name="available_location">Available Locations</string>
     <string name="close">Close</string>
-</resources>
+    <string name="FCM_MSG">com.example.sharaaf_nazeer.easycleanandroidapplication.fcm_msg</string>
+    <string name="FCM_DATE">com.example.sharaaf_nazeer.easycleanandroidapplication.fcm_date</string>
+    </resources>
