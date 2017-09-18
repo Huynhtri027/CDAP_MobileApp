@@ -97,7 +97,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public boolean onQueryTextChange(String s) {
-        Log.d("SEARCH_VALUE : " , s+"");
+
+        if (s.isEmpty()|| s.equals("")){
+            getKioskLocation();
+        }
+        //Log.d("SEARCH_VALUE : " , s+"");
         return false;
     }
 
@@ -167,10 +171,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         double lat = 0.0;
         double lng = 0.0;
         String location[] = null;
-
+        Log.d("MARKER", "Came here");
         for (KioskModel kioskModel : kioskModelList) {
 
-
+            Log.d("MARKER_AVAIL", kioskModelList.size()+"");
 
             location = kioskModel.getLocation().split(",");
             lat = Double.parseDouble(location[0]);
@@ -181,11 +185,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
                     .position(new LatLng(lat,lng))
                     .snippet(kioskModel.getAddress().toString()));
-
-            for (FirstAidKitModel kitModel: kioskModel.getFirstAidKitModel())
-            {
-
-            }
         }
     }
 
@@ -329,6 +328,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                 .positiveColor(ContextCompat.getColor(MapActivity.this, R.color.material_green))
                                 .build().show();
                         progressDialog.cancel();
+                        mGoogleMap.clear();
 
                     }else{
 
