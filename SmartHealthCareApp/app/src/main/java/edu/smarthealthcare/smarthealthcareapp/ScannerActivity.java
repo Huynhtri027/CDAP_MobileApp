@@ -51,6 +51,15 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
             {
                 requestPermission();
             }
+        }else{
+            if(checkPermission())
+            {
+                Toast.makeText(getApplicationContext(), "Permission already granted!", Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                requestPermission();
+            }
         }
     }
 
@@ -69,6 +78,17 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
         super.onResume();
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;
         if (currentapiVersion >= android.os.Build.VERSION_CODES.M) {
+            if (checkPermission()) {
+                if(scannerView == null) {
+                    scannerView = new ZXingScannerView(this);
+                    setContentView(scannerView);
+                }
+                scannerView.setResultHandler(this);
+                scannerView.startCamera();
+            } else {
+                requestPermission();
+            }
+        }else{
             if (checkPermission()) {
                 if(scannerView == null) {
                     scannerView = new ZXingScannerView(this);
@@ -131,30 +151,22 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
 
     @Override
     public void handleResult(Result result) {
-        final String myResult = result.getText();
+//        final String myResult = result.getText();
+        final String myResult = 123+"";
         // barcode value is read here
         Log.d("QRCodeScanner", result.getText());
         Log.d("QRCodeScanner", result.getBarcodeFormat().toString());
-
-
-        requestExpiryDateNotification(result.getText());
-
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Scan Result");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                requestExpiryDateNotification(myResult);
                 scannerView.resumeCameraPreview(ScannerActivity.this);
             }
         });
-        builder.setNeutralButton("Visit", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(myResult));
-                startActivity(browserIntent);
-            }
-        });
+
         builder.setMessage(result.getText());
         AlertDialog alert1 = builder.create();
         alert1.show();
