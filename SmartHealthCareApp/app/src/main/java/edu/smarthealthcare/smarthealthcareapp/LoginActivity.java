@@ -134,7 +134,8 @@ public class LoginActivity extends AppCompatActivity {
                         PatientModel patientModel = response.body();
 
                         SharedPreferenceReader.createLoginSession(LoginActivity.this,patientModel.getEmail(),patientModel.getPassword(),patientModel.getId(),patientModel.getFirstName() + " " +patientModel.getLastName());
-                        String token=SharedPreferenceReader.getFirebaseToken(getApplicationContext());
+                        String token=FirebaseInstanceId.getInstance().getToken();
+//                        String token=SharedPreferenceReader.getFirebaseToken(getApplicationContext());
                         String email=SharedPreferenceReader.getUserEmail(getApplicationContext());
                         updateToken(email,token);
                         Intent i = new Intent(LoginActivity.this, MainActivity.class);

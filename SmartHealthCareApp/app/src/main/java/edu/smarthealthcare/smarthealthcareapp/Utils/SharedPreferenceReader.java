@@ -35,7 +35,7 @@ public class SharedPreferenceReader {
         editor.putString(KEY_NAME,user_name);
         editor.putString(KEY_USER_ID,user_id);
         editor.putBoolean(KEY_IS_LOGGED_IN,true);
-        editor.putString(KEY_FIREBASE_TOKEN, FirebaseInstanceId.getInstance().getToken());
+//        editor.putString(KEY_FIREBASE_TOKEN, FirebaseInstanceId.getInstance().getToken());
         editor.putString(KEY_PASSWORD,user_password);
         editor.apply();
     }
@@ -71,12 +71,12 @@ public class SharedPreferenceReader {
     public static void setUserID(Context context, String userID){
         getPreferences(context).edit().putString(KEY_USER_ID,userID).apply();
     }
-
-    public static String getFirebaseToken(Context context){
-        return getPreferences(context).getString(KEY_FIREBASE_TOKEN,"");
-    }
-
-    public static void setFirebaseToken(Context context, String token){
-        getPreferences(context).edit().putString(KEY_FIREBASE_TOKEN,token).apply();
-    }
+//
+//    public static String getFirebaseToken(Context context){
+//        return getPreferences(context).getString(KEY_FIREBASE_TOKEN,"");
+//    }
+//
+//    public static void setFirebaseToken(Context context, String token){
+//        getPreferences(context).edit().putString(KEY_FIREBASE_TOKEN,token).apply();
+//    }
 }

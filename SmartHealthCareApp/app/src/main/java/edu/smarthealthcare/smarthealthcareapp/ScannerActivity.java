@@ -159,7 +159,7 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Scan Result");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Request", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 requestExpiryDateNotification(myResult);
